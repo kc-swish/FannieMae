@@ -1,0 +1,211 @@
+/*
+Pseudocode:
+
+1. read file
+2. credit rating: above 640
+3. LTV- AppraisedValue, DownPayment, LoanAmount
+4. PMI-
+5. DTI- monthly debt/ income
+6. Monthly debt-CarPayment,CreditCardPayment,StudentLoanPayments,MonthlyMortgagePayment
+7. fedti-
+
+Declare variables of type double for inputs: ID,GrossMonthlyIncome,CreditCardPayment,CarPayment,StudentLoanPayments,AppraisedValue,DownPayment,LoanAmount,MonthlyMortgagePayment,CreditScore 
+
+Ask user for the inputs and store it in corresponding variables.
+
+*/
+#include <iostream> 
+#include <fstream>
+using namespace std;
+
+//prototypes
+double input (double, double, double,double,double,double,double,double,double,double&);
+bool creditRating(double);
+double loanToValue(double,double,double);
+double monthlyDebt(double,double,double,double);
+double frontEndDebtToIncome(double,double);
+double deptToIncome(double,double);
+double frontEndDebtToIncome(double,double);
+
+double input();
+
+// global constant variable
+const int X = 10000;
+double DATA[10][10000];
+int row, col;
+//global file Arrays
+double iD_Arr[X];
+double GrossMonthlyIncome_Arr[X];
+double CarPayment_Arr[X];
+double StudentLoanPayments_Arr[X];
+double AppraisedValue_Arr[X];
+double DownPayment_Arr[X];
+double LoanAmount_Arr[X];
+double MonthlyMortgagePayment_Arr[X];
+double CreditScore_Arr[X];
+
+// main function
+int main() {
+  double creditScore = 0;
+  
+  // function call
+  bool isHomeOwner = creditRating(creditScore);
+  double LoanAmount = 0 ;
+  double DownPayment = 0;
+  double AppraisedValue = 0;
+  double loanToValue;
+  //monthly debt
+  double CarPayment = 0;
+  double CreditCardPayment = 0;
+  double StudentLoanPayments = 0;
+  double MonthlyMortgagePayment = 0;
+  //income
+  double GrossMonthlyIncome = 0;
+  //function call 
+  double monDebt = monthlyDebt(CarPayment,CreditCardPayment,StudentLoanPayments,MonthlyMortgagePayment);
+  double DTI= deptToIncome(monDebt,GrossMonthlyIncome);
+  double fedti = frontEndDebtToIncome(MonthlyMortgagePayment,GrossMonthlyIncome);
+  
+  
+
+  // end of variables
+  
+  
+
+}
+
+
+//END of MAIN FUNCTION
+
+
+
+
+
+
+//                                  START FUNCTIONS *********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+
+//Function - Total Inputs
+//input--> array --> file
+double input (
+  double ID,
+  double GrossMonthlyIncome,
+  double CreditCardPayment,
+  double CarPayment,
+  double StudentLoanPayments,
+  double AppraisedValue,
+  double DownPayment,
+  double LoanAmount,
+  double MonthlyMortgagePayment,
+  double& CreditScore
+)
+
+{
+  int i = 0;
+  while(i < X)
+    {
+      ifstream dataFile("HackUTD-2023-HomeBuggerInfo.csv");
+       
+      dataFile >> row;       
+      dataFile >> col;
+      
+      if(dataFile)
+      {
+        for(int i=0; i<row; i++){
+          for(int j=0; j<col; j++){
+            dataFile >> DATA[i][j];//grab data
+            
+             
+          }
+        
+      }
+      
+      
+        /*cout << "Enter ID: ";
+        cin >> ID;
+        iD_Arr[i] = ID; 
+
+        cout << "Enter Gross Monthly Income: ";
+        cin >> GrossMonthlyIncome;
+        GrossMonthlyIncome_Arr[i] = GrossMonthlyIncome;
+
+        cout << "Enter Credit Card Payment: ";
+        cin >> CreditCardPayment;
+        CreditCardPayment_Arr[i] = CreditCardPayment;
+
+        cout << "Enter Car Payment: ";
+        cin >> CarPayment;
+        CarPayment_Arr[i] = CarPayment;
+
+        cout << "Enter Student Loan Payment: ";
+        cin >> StudentLoanPayments;
+        StudentLoanPayments_Arr[i] = StudentLoanPayments;
+
+        cout << "Enter Appraised Value: ";
+        cin >> AppraisedValue;
+        AppraisedValue_Arr[i] = AppraisedValue;
+
+        cout << "Enter Down Payment: ";
+        cin >> DownPayment;
+        DownPayment_Arr[i] = DownPayment;
+
+        cout << "Enter Loan Amount: ";
+        cin >> LoanAmount;
+        LoanAmount_Arr[i] = LoanAmount;
+
+        cout << "Enter Monthly Mortgage Payment: ";
+        cin >> MonthlyMortgagePayment;
+       MonthlyMortgagePayment_Arr[i] = 
+       MonthlyMortgagePayment;
+
+      
+        cout << "Enter Credit Score: ";
+        cin >> CreditScore;
+        CreditScore_Arr[i] = CreditScore;*/
+        
+        i++; 
+
+        
+    }
+}
+
+
+// Credit Rating 
+bool creditRating(double creditScore){
+  bool isHomeOwner = false;
+  if(creditScore>=640){
+    isHomeOwner = true;
+  }
+  return isHomeOwner;
+}
+
+//LoanToValue
+double loanToValue(double AppraisedValue,double DownPayment,double LoanAmount){
+     LoanAmount = AppraisedValue-DownPayment;
+  return LoanAmount/AppraisedValue;
+      
+}
+//To include in the LTV
+void findPMIValue(double loanToValue){
+  cout << "The Private Mortgage Insurance is "
+  double pmiValue = 0;
+  int PMI = 0;
+  cin < a;
+  if(loanToValue > 0.8){
+    PMI = (percentage * 1000)/12
+
+  }
+}
+//monthly debt of the user 
+double monthlyDebt(double CarPayment,double CreditCardPayment,double StudentLoanPayments,double MonthlyMortgagePayment){
+  return CarPayment+CreditCardPayment+StudentLoanPayments+MonthlyMortgagePayment;
+}
+//DTI 
+double deptToIncome(double monDebt, double GrossMonthlyIncome){
+  return monDebt/GrossMonthlyIncome;
+}
+//FEDTI
+double frontEndDebtToIncome(double MonthlyMortgagePayment,double GrossMonthlyIncome){
+  return MonthlyMortgagePayment/GrossMonthlyIncome;
+} 
+
+
